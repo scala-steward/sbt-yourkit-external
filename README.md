@@ -41,6 +41,17 @@ Your project should use [sbt-native-packager](http://www.scala-sbt.org/sbt-nativ
 for packaging, and use the `JavaAppPackaging` AutoPlugin (or some plugin that in turn
 depends on this). This is standard for packaged applications which run on the Java VM.
 
+## Security Note
+The YourKit agent opens a TCP port which allows access to the profiling options available in the VM.
+This should be secured from access by arbitrary people:
+
+ - You can place the running service in a network with appropriate network restrictions, so that
+   only allowed machines can connect to the service.
+
+ - You can add flags to limit the network interfaces on which the agent listens, see some possible
+   options at https://www.yourkit.com/docs/80/help/startup_options.jsp
+   In particular, the `onlylocal` option allows connections only from the local machine.
+
 ## Limitations
 While it would be nice to include support for multiple platforms in the archive, and
 then choose between them at runtime, this requires some runtime checks in the start
