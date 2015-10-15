@@ -35,7 +35,8 @@ The startup options for the YourKit agent are described at
 https://www.yourkit.com/docs/80/help/startup_options.jsp
 
 ## Overriding at runtime
-You can override the behaviour of the plugin at runtime by setting some environment variables.
+You can override the behaviour of your packaged application at runtime by setting some
+environment variables.
 
 | Environment variable          | Purpose                                             |
 |-------------------------------|-----------------------------------------------------|
