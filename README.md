@@ -34,6 +34,14 @@ Two SBT keys are intended to be customized for your purposes:
 The startup options for the YourKit agent are described at
 https://www.yourkit.com/docs/80/help/startup_options.jsp
 
+## Overriding at runtime
+You can override the behaviour of the plugin at runtime by setting some environment variables.
+
+| Environment variable          | Purpose                                             |
+|-------------------------------|-----------------------------------------------------|
+| YOURKIT_AGENT_DISABLED        | If set (to any value), completely disable the agent |
+| YOURKIT_AGENT_STARTUP_OPTIONS | If set, overrides startup options provided to agent |
+
 ## Requirements
 The plugin requires SBT >= 0.13.5 (as it is an SBT AutoPlugin). It also requires Java 7+.
 
