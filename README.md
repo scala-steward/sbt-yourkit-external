@@ -14,7 +14,7 @@ See https://www.yourkit.com/features/ for more details.
 1. Add the following to your project build, e.g. `project/plugins.sbt`:
 
   ```scala
-  addSbtPlugin("com.gilt.sbt" % "sbt-yourkit" % "0.0.2")
+  addSbtPlugin("com.gilt.sbt" % "sbt-yourkit" % "0.0.3")
   ```
 
 2. Add the `YourKit` plugin to your project, e.g.:
