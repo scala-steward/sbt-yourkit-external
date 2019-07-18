@@ -1,5 +1,7 @@
 # sbt-yourkit-external
 
+[![Build status](https://badge.buildkite.com/b75b135f9ddc041dc9c16d46e1f57d98f4793c233438e1f6af.svg)](https://buildkite.com/vital/sbt-yourkit-external)
+
 Adds a YourKit agent javaOption to the `run` and `Universal` (native-packaging) configurations. The YourKit Java
 Profiler is a profiling tool for memory, CPU, threads, exceptions, and other aspects of your Java VM. See
 https://www.yourkit.com/features/ for more details.
