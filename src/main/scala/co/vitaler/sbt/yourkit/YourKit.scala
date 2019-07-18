@@ -3,7 +3,6 @@ package co.vitaler.sbt.yourkit
 import com.typesafe.sbt.packager.archetypes.JavaAppPackaging
 import com.typesafe.sbt.packager.universal.UniversalPlugin.autoImport._
 import sbt.Keys.normalizedName
-import sbt.{ AutoPlugin, Plugins, settingKey }
 import sbt._
 import Keys._
 
@@ -14,8 +13,9 @@ object YourKit extends AutoPlugin {
     val yourKitVersion = settingKey[String]("Version of YourKit Agent installed, e.g. 2019.1")
     val yourKitAgentStartupOptions = settingKey[Seq[String]]("Startup options passed to YourKit agent")
 
-    val yourKitPath = taskKey[String]("Resolved path to YourKit bin location, based on platform, version, and install dir")
-    val yourKitJavaOption = taskKey[String]("Resolved java option to load the YourKit agent")
+    val yourKitPath =
+      settingKey[String]("Resolved path to YourKit bin location, based on platform, version, and install dir")
+    val yourKitJavaOption = settingKey[String]("Resolved java option to load the YourKit agent")
   }
 
   import autoImport._
