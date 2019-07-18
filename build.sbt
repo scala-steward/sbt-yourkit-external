@@ -56,7 +56,7 @@ val unreleasedCompare = """^\[Unreleased\]: https://github\.com/(.*)/compare/(.*
 updateLinesSchema := Seq(
   UpdateLine(
     file("README.md"),
-    _.matches("addSbtPlugin.*// Latest release"),
+    _.matches("addSbtPlugin.* // Latest release"),
     (v, _) => s"""addSbtPlugin("co.vitaler" % "sbt-yourkit-external" % "$v") // Latest release"""
   ),
   UpdateLine(

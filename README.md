@@ -20,10 +20,10 @@ The advantage is that your can use the newest agent versions without updating th
 
 Add the plugin to your project build, e.g. `project/plugins.sbt`:
 
-  ```scala
-  resolvers += Resolver.bintrayIvyRepo("vitaler", "sbt-plugins")
-  addSbtPlugin("co.vitaler" % "sbt-yourkit-external" % "0.1.0") // Latest release
-  ```
+```scala
+resolvers += Resolver.bintrayIvyRepo("vitaler", "sbt-plugins")
+addSbtPlugin("co.vitaler" % "sbt-yourkit-external" % "0.1.0") // Latest release
+```
 
 (You'll need to add the resolver too, as we're not yet syncing into the main sbt-plugins community repo)
 
