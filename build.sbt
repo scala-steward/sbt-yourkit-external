@@ -1,4 +1,4 @@
-organization := "com.gilt.sbt"
+organization := "co.vitaler"
 
 name := "sbt-yourkit"
 
@@ -11,18 +11,22 @@ scalacOptions ++= List(
   "-encoding", "UTF-8"
 )
 
-javaVersionPrefix in javaVersionCheck := Some("1.7")
+addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.3.6" % Provided)
+addSbtPlugin("com.lightbend.sbt" % "sbt-javaagent" % "0.1.4" % Provided)
 
-addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.0.3" % "provided")
+enablePlugins(SbtPlugin)
 
-version := "git describe --tags --dirty --always".!!.stripPrefix("v").trim
+// GPG settings
+credentials += Credentials(
+  "GnuPG Key ID",
+  "gpg",
+  "B9513278AF9A10374E07A88FAA24C7523BD70F36",
+  "ignored"
+)
 
+// Publishing
+bintrayRepository := "sbt-plugins"
+bintrayOrganization := Some("vitaler")
+bintrayPackageLabels := Seq("sbt", "yourkit", "sbt-native-packager", "sbt-javaagent")
 publishMavenStyle := false
-
-bintrayOrganization := Some("giltgroupe")
-
-bintrayPackageLabels := Seq("sbt", "yourkit", "sbt-native-packager")
-
-bintrayRepository := "sbt-plugin-releases"
-
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
