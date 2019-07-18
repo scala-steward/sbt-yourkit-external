@@ -19,19 +19,6 @@ steps:
 
   - wait
 
-  - name: ":scala: Run tests"
-    command: sbt -batch -v test
-    timeout_in_minutes: 5
-    plugins:
-      vital-software/metadata-env#v0.0.1:
-        get: [SBT_VERSION, GIT_COMMITTED_AT]
-      vital-software/docker-compose#vital-v2.5:
-        config:
-          - docker-compose.yml
-          - docker-compose.buildkite.yml
-        run: sbt-yourkit-external-base
-        log_all: true
-
   - name: ":sbt: Run sbt scripted tests"
     command: sbt -batch -v scripted
     timeout_in_minutes: 5
