@@ -1,68 +1,52 @@
-# sbt-yourkit
-Adds YourKit agent to Java packages built using sbt-native-packager.
+# sbt-yourkit-external
 
-The plugin adds the YourKit shared library for a target platform into
-the package built by sbt-native-packager, and adds the library as an
-agent at startup.
+Adds a YourKit agent javaOption to the `run` and `Universal` (native-packaging) configurations. The YourKit Java
+Profiler is a profiling tool for memory, CPU, threads, exceptions, and other aspects of your Java VM. See
+https://www.yourkit.com/features/ for more details.
 
-The YourKit Java Profiler is a profiling tool for memory, CPU, threads,
-exceptions, and other aspects of your Java VM.
-See https://www.yourkit.com/features/ for more details.
+Unlike the upstream `sbt-yourkit` plugin this is based on, this plugin doesn't contain the profiler binary itself, nor
+add it to your classpath. Instead, you're expected to install the agent binary yourself. Typically, this means doing
+something like this in your Docker build:
+
+```
+RUN wget https://www.yourkit.com/download/docker/YourKit-JavaProfiler-2019.1-docker.zip -P /tmp/ && \
+  unzip /tmp/YourKit-JavaProfiler-2019.1-docker.zip -d /usr/local && \
+  rm /tmp/YourKit-JavaProfiler-2019.1-docker.zip
+```
+
+The advantage is that your can use the newest agent versions without updating this plugin.
 
 ## Usage
 
-1. Add the following to your project build, e.g. `project/plugins.sbt`:
+Add the plugin to your project build, e.g. `project/plugins.sbt`:
 
   ```scala
-  addSbtPlugin("com.gilt.sbt" % "sbt-yourkit" % "0.0.3")
+  resolvers += Resolver.bintrayIvyRepo("vitaler", "sbt-plugins")
+  addSbtPlugin("co.vitaler" % "sbt-yourkit-external" % "0.1.0") // Latest release
   ```
 
-2. Add the `YourKit` plugin to your project, e.g.:
+(You'll need to add the resolver too, as we're not yet syncing into the main sbt-plugins community repo)
 
-  ```scala
-  enablePlugins(YourKit)
-  ```
-  
-## Customization
-Two SBT keys are intended to be customized for your purposes:
+### Configuration
 
-| Key name                   | Purpose                       | Default value                  |
-|----------------------------|-------------------------------|--------------------------------|
-| yourKitAgentPlatforms      | Shared object target platform | `Seq("linux-x86-64")`          |
-| yourKitAgentStartupOptions | Startup options for YourKit   | `sessionname=${project_name},` |
+The most important configuration values are:
 
-The startup options for the YourKit agent are described at
-https://www.yourkit.com/docs/80/help/startup_options.jsp
+Key | Type | Purpose | Default value
+--- | --- | --- | ---
+`yourKitVersion` | `String` | Version of YourKit installed | `"2019.1"`
+`yourKitInstallDir` | `String` | Path to the root of the YourKit agent installation | `s"/usr/local/YourKit-JavaProfiler-${yourKitVersion.value}"`
+`yourKitAgentStartupOptions` | `Seq[String]` | [Startup options for YourKit](https://www.yourkit.com/docs/java/help/startup_options.jsp) | `Seq(s"sessionname=${project_name}")`
+`yourKitAgentPlatform` | `String` | Platform name, [according to YourKit](https://www.yourkit.com/docs/java/help/agent.jsp), e.g. `linux-ppc-64` | Should be automatically detected, if you're running in a 64-bit architecture.
 
-## Overriding at runtime
-You can override the behaviour of your packaged application at runtime by setting some
-environment variables.
-
-| Environment variable          | Purpose                                             |
-|-------------------------------|-----------------------------------------------------|
-| YOURKIT_AGENT_DISABLED        | If set (to any value), completely disable the agent |
-| YOURKIT_AGENT_STARTUP_OPTIONS | If set, overrides startup options provided to agent |
-
-## Requirements
-The plugin requires SBT >= 0.13.5 (as it is an SBT AutoPlugin). It also requires Java 7+.
-
-Your project should use [sbt-native-packager](http://www.scala-sbt.org/sbt-native-packager/) >= 1.0.0
-for packaging, and use the `JavaAppPackaging` AutoPlugin (or some plugin that in turn
-depends on this). This is standard for packaged applications which run on the Java VM.
+These settings are combined into a `yourKitJavaOption` setting, which is added to `Universal / javaOptions` and `run / javaOptions` (you'll need
+`run / fork` to be true for the latter to take effect)
 
 ## Security Note
-The YourKit agent opens a TCP port which allows access to the profiling options available in the VM.
-This should be secured from access by arbitrary people:
 
- - You can place the running service in a network with appropriate network restrictions, so that
-   only allowed machines can connect to the service.
+The YourKit agent opens a TCP port which allows access to the profiling options available in the VM. This should be
+secured from access by arbitrary people:
 
- - You can add flags to limit the network interfaces on which the agent listens, see some possible
-   options at https://www.yourkit.com/docs/80/help/startup_options.jsp
-   In particular, the `onlylocal` option allows connections only from the local machine.
-
-## Limitations
-While it would be nice to include support for multiple platforms in the archive, and
-then choose between them at runtime, this requires some runtime checks in the start
-script. This is possible, but error-prone without access to the appropriate systems
-for testing.
+ - You can place the running service in a network with appropriate network restrictions, so that only allowed machines
+   can connect to the service.
+ - You can add [startup options](https://www.yourkit.com/docs/java/help/startup_options.jsp) to limit the network
+   interfaces on which the agent listens. In particular, the `onlylocal` option allows connections only from the local machine.
