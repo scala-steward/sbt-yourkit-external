@@ -33,7 +33,7 @@ credentials += Credentials(
 // Publishing
 bintrayRepository := "sbt-plugins"
 bintrayOrganization := Some("vitaler")
-bintrayPackageLabels := Seq("sbt", "yourkit", "sbt-native-packager", "sbt-javaagent")
+bintrayPackageLabels := Seq("sbt", "yourkit", "sbt-native-packager")
 publishMavenStyle := false
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 
