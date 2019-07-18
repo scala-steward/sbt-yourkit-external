@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+## [0.1.1] - 2019-07-18
+
 ### Changed
 
 - Actual agent binaries are no longer distributed alongside this plugin
@@ -19,5 +21,6 @@
 
 - Initial version imported from upstream
 
-[Unreleased]: https://github.com/vital-software/sbt-update-lines/compare/v0.0.3...HEAD
+[Unreleased]: https://github.com/vital-software/sbt-update-lines/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/vital-software/sbt-update-lines/compare/v0.0.3...v0.1.1
 [0.0.3]: https://github.com/vital-software/sbt-update-lines/releases/tag/v0.0.3
