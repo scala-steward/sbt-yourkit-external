@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+## [0.1.3] - 2019-07-24
+
 ### Added
 
 - Will now only attempt to add the profiler to the run javaOptions if the dynamic
@@ -34,7 +36,8 @@
 
 - Initial version imported from upstream
 
-[Unreleased]: https://github.com/vital-software/sbt-update-lines/compare/v0.1.2...HEAD
+[Unreleased]: https://github.com/vital-software/sbt-update-lines/compare/v0.1.3...HEAD
+[0.1.3]: https://github.com/vital-software/sbt-update-lines/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/vital-software/sbt-update-lines/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/vital-software/sbt-update-lines/compare/v0.0.3...v0.1.1
 [0.0.3]: https://github.com/vital-software/sbt-update-lines/releases/tag/v0.0.3
