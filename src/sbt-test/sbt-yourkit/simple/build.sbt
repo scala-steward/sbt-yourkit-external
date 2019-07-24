@@ -14,6 +14,7 @@ Universal / packageZipTarball / universalArchiveOptions := Seq("--force-local", 
 
 yourKitAgentStartupOptions ++= Map("listen" -> "local", "port" -> "10001")
 Universal / yourKitAgentStartupOptions ++= Map("listen" -> "all")
+yourKitAgentPlatform := "linux-x86-64"
 
 // Test assertions
 
