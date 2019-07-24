@@ -6,6 +6,8 @@
 
 ### Changed
 
+- Changed the type of the startup options setting to be a `Map[String, String]`
+  of options
 - Ensure native-packaged runs and normal runs can use separate startup options
 
 ## [0.1.1] - 2019-07-18

@@ -43,7 +43,7 @@ object YourKit extends AutoPlugin {
     yourKitAgentStartupOptions := Map("sessionname" -> s"${normalizedName.value}"),
 
     yourKitJavaOption := s"-J-agentpath:${(yourKitPath).value}=${startupOptions(yourKitAgentStartupOptions.value)}",
-    javaOptions += (yourKitJavaOption).value,
+    javaOptions += yourKitJavaOption.value,
 
     Universal / yourKitPath := s"${(Universal / yourKitInstallDir).value}/bin/${(Universal / yourKitAgentPlatform).value}/${soName((Universal / yourKitAgentPlatform).value)}",
     Universal / yourKitJavaOption := s"-J-agentpath:${(Universal / yourKitPath).value}=${startupOptions((Universal / yourKitAgentStartupOptions).value)}",
