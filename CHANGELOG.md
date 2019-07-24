@@ -4,6 +4,11 @@
 
 ## [Unreleased]
 
+### Added
+
+- Will now only attempt to add the profiler to the run javaOptions if the dynamic
+  library is found at the expected path
+
 ## [0.1.2] - 2019-07-24
 
 ### Changed

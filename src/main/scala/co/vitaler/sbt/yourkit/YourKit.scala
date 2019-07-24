@@ -15,7 +15,7 @@ object YourKit extends AutoPlugin {
 
     val yourKitPath =
       settingKey[String]("Resolved path to YourKit bin location, based on platform, version, and install dir")
-    val yourKitJavaOption = settingKey[String]("Resolved java option to load the YourKit agent")
+    val yourKitJavaOption = settingKey[Option[String]]("Resolved java option to load the YourKit agent")
   }
 
   import autoImport._
@@ -42,12 +42,15 @@ object YourKit extends AutoPlugin {
   override lazy val projectSettings: Seq[Def.Setting[_]] = Seq(
     yourKitAgentStartupOptions := Map("sessionname" -> s"${normalizedName.value}"),
 
-    yourKitJavaOption := s"-J-agentpath:${(yourKitPath).value}=${startupOptions(yourKitAgentStartupOptions.value)}",
-    javaOptions += yourKitJavaOption.value,
+    yourKitJavaOption := {
+      val path = s"-agentpath:${(yourKitPath).value}=${startupOptions(yourKitAgentStartupOptions.value)}"
+      if (file(path).exists()) Some(path) else None
+    },
+    javaOptions ++= yourKitJavaOption.value,
 
     Universal / yourKitPath := s"${(Universal / yourKitInstallDir).value}/bin/${(Universal / yourKitAgentPlatform).value}/${soName((Universal / yourKitAgentPlatform).value)}",
-    Universal / yourKitJavaOption := s"-J-agentpath:${(Universal / yourKitPath).value}=${startupOptions((Universal / yourKitAgentStartupOptions).value)}",
-    Universal / javaOptions += (Universal / yourKitJavaOption).value,
+    Universal / yourKitJavaOption := Some(s"-J-agentpath:${(Universal / yourKitPath).value}=${startupOptions((Universal / yourKitAgentStartupOptions).value)}"),
+    Universal / javaOptions ++= (Universal / yourKitJavaOption).value,
   )
 
   private def startupOptions(options: Map[String, String]): String =
