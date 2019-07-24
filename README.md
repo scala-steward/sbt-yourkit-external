@@ -37,7 +37,7 @@ Key | Type | Purpose | Default value
 --- | --- | --- | ---
 `yourKitVersion` | `String` | Version of YourKit installed | `"2019.1"`
 `yourKitInstallDir` | `String` | Path to the root of the YourKit agent installation | `s"/usr/local/YourKit-JavaProfiler-${yourKitVersion.value}"`
-`yourKitAgentStartupOptions` | `Seq[String]` | [Startup options for YourKit](https://www.yourkit.com/docs/java/help/startup_options.jsp) | `Seq(s"sessionname=${project_name}")`
+`yourKitAgentStartupOptions` | `Map[String, String]` | [Startup options for YourKit](https://www.yourkit.com/docs/java/help/startup_options.jsp) | `Map("sessionname" -> s"$project")`
 `yourKitAgentPlatform` | `String` | Platform name, [according to YourKit](https://www.yourkit.com/docs/java/help/agent.jsp), e.g. `linux-ppc-64` | Should be automatically detected, if you're running in a 64-bit architecture.
 
 These settings are combined into a `yourKitJavaOption` setting, which is added to `Universal / javaOptions` and `run / javaOptions` (you'll need
@@ -51,4 +51,4 @@ secured from access by arbitrary people:
  - You can place the running service in a network with appropriate network restrictions, so that only allowed machines
    can connect to the service.
  - You can add [startup options](https://www.yourkit.com/docs/java/help/startup_options.jsp) to limit the network
-   interfaces on which the agent listens. In particular, the `onlylocal` option allows connections only from the local machine.
+   interfaces on which the agent listens.
