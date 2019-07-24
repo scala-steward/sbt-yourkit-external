@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Ensure native-packaged runs and normal runs can use separate startup options
+
 ## [0.1.1] - 2019-07-18
 
 ### Changed

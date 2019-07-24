@@ -11,7 +11,7 @@ object YourKit extends AutoPlugin {
     val yourKitAgentPlatform = settingKey[String]("Supported platform (mac/win/linux-x86-64)")
     val yourKitInstallDir = settingKey[String]("Install directory for YourKit, usually /usr/local/")
     val yourKitVersion = settingKey[String]("Version of YourKit Agent installed, e.g. 2019.1")
-    val yourKitAgentStartupOptions = settingKey[Seq[String]]("Startup options passed to YourKit agent")
+    val yourKitAgentStartupOptions = settingKey[Map[String, String]]("Startup options passed to YourKit agent")
 
     val yourKitPath =
       settingKey[String]("Resolved path to YourKit bin location, based on platform, version, and install dir")
@@ -24,7 +24,7 @@ object YourKit extends AutoPlugin {
 
   override def requires: Plugins = JavaAppPackaging
 
-  override lazy val projectSettings = Seq(
+  override lazy val globalSettings: Seq[Def.Setting[_]] = Seq(
     // Guess platform based on os.name, assuming 64-bit
     yourKitAgentPlatform := {
       System.getProperty("os.name").toLowerCase match {
@@ -35,14 +35,23 @@ object YourKit extends AutoPlugin {
       }
     },
     yourKitVersion := "2019.1",
-    yourKitAgentStartupOptions := Seq(s"sessionname=${normalizedName.value}"),
     yourKitInstallDir := s"/usr/local/YourKit-JavaProfiler-${yourKitVersion.value}",
     yourKitPath := s"${yourKitInstallDir.value}/bin/${yourKitAgentPlatform.value}/${soName(yourKitAgentPlatform.value)}",
-    yourKitJavaOption := s"-J-agentpath:${yourKitPath.value}=${yourKitAgentStartupOptions.value.mkString(",")}",
-
-    Universal / javaOptions += yourKitJavaOption.value,
-    run / javaOptions += yourKitJavaOption.value,
   )
+
+  override lazy val projectSettings: Seq[Def.Setting[_]] = Seq(
+    yourKitAgentStartupOptions := Map("sessionname" -> s"${normalizedName.value}"),
+
+    yourKitJavaOption := s"-J-agentpath:${(yourKitPath).value}=${startupOptions(yourKitAgentStartupOptions.value)}",
+    javaOptions += (yourKitJavaOption).value,
+
+    Universal / yourKitPath := s"${(Universal / yourKitInstallDir).value}/bin/${(Universal / yourKitAgentPlatform).value}/${soName((Universal / yourKitAgentPlatform).value)}",
+    Universal / yourKitJavaOption := s"-J-agentpath:${(Universal / yourKitPath).value}=${startupOptions((Universal / yourKitAgentStartupOptions).value)}",
+    Universal / javaOptions += (Universal / yourKitJavaOption).value,
+  )
+
+  private def startupOptions(options: Map[String, String]): String =
+    options.map(_.productIterator.mkString("=")).mkString(",")
 
   private def soName(platform: String): String =
     if (platform == "mac")
