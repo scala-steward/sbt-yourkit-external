@@ -27,7 +27,6 @@ object YourKit extends AutoPlugin {
 
   override lazy val globalSettings: Seq[Def.Setting[_]] = Seq(
     // Guess platform based on os.name, assuming 64-bit
-    yourKitEnabled := true,
     yourKitAgentPlatform := {
       System.getProperty("os.name").toLowerCase match {
         case mac if mac.contains("mac")       => "mac"
@@ -42,6 +41,7 @@ object YourKit extends AutoPlugin {
   )
 
   override lazy val projectSettings: Seq[Def.Setting[_]] = Seq(
+    yourKitEnabled := true,
     yourKitAgentStartupOptions := Map("sessionname" -> s"${normalizedName.value}"),
 
     yourKitJavaOption := Option(yourKitEnabled.value)
