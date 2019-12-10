@@ -4,6 +4,11 @@
 
 ## [Unreleased]
 
+### Added
+
+- Added `yourKitEnabled` boolean setting, which controls whether the agent is ever
+  actually added to JVM options
+
 ## [0.1.3] - 2019-07-24
 
 ### Added
