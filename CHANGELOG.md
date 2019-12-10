@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Moved `yourKitEnabled` to a project setting
+
 ## [0.2.0] - 2019-12-10
 
 ### Added
