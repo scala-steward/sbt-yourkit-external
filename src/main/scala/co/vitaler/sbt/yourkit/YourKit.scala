@@ -8,6 +8,7 @@ import Keys._
 
 object YourKit extends AutoPlugin {
   object autoImport {
+    val yourKitEnabled = settingKey[Boolean]("Whether to add the necessary YourKit -agentpath JVM options to enable the agent")
     val yourKitAgentPlatform = settingKey[String]("Supported platform (mac/win/linux-x86-64)")
     val yourKitInstallDir = settingKey[String]("Install directory for YourKit, usually /usr/local/")
     val yourKitVersion = settingKey[String]("Version of YourKit Agent installed, e.g. 2019.1")
@@ -42,10 +43,12 @@ object YourKit extends AutoPlugin {
   override lazy val projectSettings: Seq[Def.Setting[_]] = Seq(
     yourKitAgentStartupOptions := Map("sessionname" -> s"${normalizedName.value}"),
 
-    yourKitJavaOption := {
-      val path = s"-agentpath:${(yourKitPath).value}=${startupOptions(yourKitAgentStartupOptions.value)}"
-      if (file(path).exists()) Some(path) else None
-    },
+    yourKitJavaOption := Option(yourKitEnabled.value)
+      .filter(identity)
+      .flatMap(_ => Option(file(yourKitPath.value).exists()))
+      .filter(identity)
+      .map(_ => s"-agentpath:${(yourKitPath).value}=${startupOptions(yourKitAgentStartupOptions.value)}"),
+
     javaOptions ++= yourKitJavaOption.value,
 
     Universal / yourKitPath := s"${(Universal / yourKitInstallDir).value}/bin/${(Universal / yourKitAgentPlatform).value}/${soName((Universal / yourKitAgentPlatform).value)}",
