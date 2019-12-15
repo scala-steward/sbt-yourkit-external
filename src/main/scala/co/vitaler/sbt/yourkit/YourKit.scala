@@ -35,7 +35,7 @@ object YourKit extends AutoPlugin {
         case _                                => throw new RuntimeException("Unknown platform, configure yourKitAgentPlatform setting manually")
       }
     },
-    yourKitVersion := "2019.1",
+    yourKitVersion := "2019.8",
     yourKitInstallDir := s"/usr/local/YourKit-JavaProfiler-${yourKitVersion.value}",
     yourKitPath := s"${yourKitInstallDir.value}/bin/${yourKitAgentPlatform.value}/${soName(yourKitAgentPlatform.value)}",
   )
