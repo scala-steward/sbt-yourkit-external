@@ -20,7 +20,7 @@ yourKitAgentPlatform := "linux-x86-64"
 
 TaskKey[Unit]("checkTarget") := {
   val ini = Source.fromFile(file("target/universal/stage/conf/application.ini"))(Codec.UTF8).getLines().toList
-  if (!ini.contains("-J-agentpath:/usr/local/YourKit-JavaProfiler-2019.1/bin/linux-x86-64/libyjpagent.so=sessionname=root,listen=all,port=10001")) {
+  if (!ini.contains("-J-agentpath:/usr/local/YourKit-JavaProfiler-2019.8/bin/linux-x86-64/libyjpagent.so=sessionname=root,listen=all,port=10001")) {
     println(ini.mkString("\n"))
     sys.error("Could not find expected agent path argument in application.ini")
   }
