@@ -24,7 +24,7 @@ Add the plugin to your project build, e.g. `project/plugins.sbt`:
 
 ```scala
 resolvers += Resolver.bintrayIvyRepo("vitaler", "sbt-plugins")
-addSbtPlugin("co.vitaler" % "sbt-yourkit-external" % "0.2.1") // Latest release
+addSbtPlugin("co.vitaler" % "sbt-yourkit-external" % "0.2.2") // Latest release
 ```
 
 (You'll need to add the resolver too, as we're not yet syncing into the main sbt-plugins community repo)
