@@ -44,16 +44,21 @@ object YourKit extends AutoPlugin {
     yourKitEnabled := true,
     yourKitAgentStartupOptions := Map("sessionname" -> s"${normalizedName.value}"),
 
-    yourKitJavaOption := Option(yourKitEnabled.value)
-      .filter(identity)
-      .flatMap(_ => Option(file(yourKitPath.value).exists()))
-      .filter(identity)
-      .map(_ => s"-agentpath:${(yourKitPath).value}=${startupOptions(yourKitAgentStartupOptions.value)}"),
-
+    yourKitJavaOption := (
+      if (yourKitEnabled.value && file(yourKitPath.value).exists())
+        Some(s"-agentpath:${yourKitPath.value}=${startupOptions(yourKitAgentStartupOptions.value)}")
+      else
+        None
+    ),
     javaOptions ++= yourKitJavaOption.value,
 
     Universal / yourKitPath := s"${(Universal / yourKitInstallDir).value}/bin/${(Universal / yourKitAgentPlatform).value}/${soName((Universal / yourKitAgentPlatform).value)}",
-    Universal / yourKitJavaOption := Some(s"-J-agentpath:${(Universal / yourKitPath).value}=${startupOptions((Universal / yourKitAgentStartupOptions).value)}"),
+    Universal / yourKitJavaOption := (
+      if (yourKitEnabled.value && file((Universal / yourKitPath).value).exists())
+        Some(s"-J-agentpath:${(Universal / yourKitPath).value}=${startupOptions((Universal / yourKitAgentStartupOptions).value)}")
+      else
+        None
+    ),
     Universal / javaOptions ++= (Universal / yourKitJavaOption).value,
   )
 
