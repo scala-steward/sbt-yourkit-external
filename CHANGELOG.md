@@ -4,6 +4,11 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- The setting `yourKitEnabled` did not affect the sbt-native-packager
+  configuration - now it does
+
 ## [0.2.1] - 2019-12-10
 
 ### Changed
