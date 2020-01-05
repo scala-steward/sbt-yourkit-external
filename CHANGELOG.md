@@ -4,6 +4,11 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Upgraded default version of the agent to 2019.8
+- Upgraded SBT to 1.3.6
+
 ## [0.2.2] - 2019-12-20
 
 ### Fixed
