@@ -1,3 +1,5 @@
+$ mkdir install/bin/linux-x86-64
+$ touch install/bin/linux-x86-64/libyjpagent.so
 > stage
 $ exists target
 > checkTarget

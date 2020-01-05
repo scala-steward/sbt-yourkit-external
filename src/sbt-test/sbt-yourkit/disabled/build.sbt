@@ -1,7 +1,5 @@
 import scala.io.{ Codec, Source }
 
-name := "disabled"
-
 lazy val root = (project in file("."))
   .enablePlugins(
     JavaAppPackaging
@@ -24,7 +22,7 @@ yourKitVersion := "2019.8"
 TaskKey[Unit]("checkNoTarget") := {
   if (file("target/universal/stage/conf/application.ini").exists()) {
     val ini: List[String] = Source.fromFile(file("target/universal/stage/conf/application.ini"))(Codec.UTF8).getLines().toList
-    if (ini.exists(_.contains("YourKit"))) {
+    if (ini.exists(_.contains("libyjpagent"))) {
       println(ini.mkString("\n"))
       sys.error("Found unexpected agent path argument in application.ini")
     }
