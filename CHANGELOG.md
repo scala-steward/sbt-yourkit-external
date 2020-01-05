@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+## [0.2.3] - 2020-01-05
+
 ### Changed
 
 - Upgraded default version of the agent to 2019.8
@@ -61,7 +63,8 @@
 
 - Initial version imported from upstream
 
-[Unreleased]: https://github.com/vital-software/sbt-update-lines/compare/v0.2.2...HEAD
+[Unreleased]: https://github.com/vital-software/sbt-update-lines/compare/v0.2.3...HEAD
+[0.2.3]: https://github.com/vital-software/sbt-update-lines/compare/v0.2.2...v0.2.3
 [0.2.2]: https://github.com/vital-software/sbt-update-lines/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/vital-software/sbt-update-lines/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/vital-software/sbt-update-lines/compare/v0.1.3...v0.2.0
