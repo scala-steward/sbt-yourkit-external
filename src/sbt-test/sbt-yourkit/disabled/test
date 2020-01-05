@@ -1,0 +1,4 @@
+> stage
+$ exists target
+$ pause
+> checkNoTarget
