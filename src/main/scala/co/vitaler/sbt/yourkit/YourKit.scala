@@ -11,7 +11,7 @@ object YourKit extends AutoPlugin {
     val yourKitEnabled = settingKey[Boolean]("Whether to add the necessary YourKit -agentpath JVM options to enable the agent")
     val yourKitAgentPlatform = settingKey[String]("Supported platform (mac/win/linux-x86-64)")
     val yourKitInstallDir = settingKey[String]("Install directory for YourKit, usually /usr/local/")
-    val yourKitVersion = settingKey[String]("Version of YourKit Agent installed, e.g. 2019.1")
+    val yourKitVersion = settingKey[String]("Version of YourKit Agent installed, e.g. 2019.8")
     val yourKitAgentStartupOptions = settingKey[Map[String, String]]("Startup options passed to YourKit agent")
 
     val yourKitPath =
@@ -35,7 +35,7 @@ object YourKit extends AutoPlugin {
         case _                                => throw new RuntimeException("Unknown platform, configure yourKitAgentPlatform setting manually")
       }
     },
-    yourKitVersion := "2019.1",
+    yourKitVersion := "2019.8",
     yourKitInstallDir := s"/usr/local/YourKit-JavaProfiler-${yourKitVersion.value}",
     yourKitPath := s"${yourKitInstallDir.value}/bin/${yourKitAgentPlatform.value}/${soName(yourKitAgentPlatform.value)}",
   )

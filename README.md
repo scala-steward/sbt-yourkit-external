@@ -11,9 +11,9 @@ add it to your classpath. Instead, you're expected to install the agent binary y
 something like this in your Docker build:
 
 ```
-RUN wget https://www.yourkit.com/download/docker/YourKit-JavaProfiler-2019.1-docker.zip -P /tmp/ && \
-  unzip /tmp/YourKit-JavaProfiler-2019.1-docker.zip -d /usr/local && \
-  rm /tmp/YourKit-JavaProfiler-2019.1-docker.zip
+RUN wget https://www.yourkit.com/download/docker/YourKit-JavaProfiler-2019.8-docker.zip -P /tmp/ && \
+  unzip /tmp/YourKit-JavaProfiler-2019.8-docker.zip -d /usr/local && \
+  rm /tmp/YourKit-JavaProfiler-2019.8-docker.zip
 ```
 
 The advantage is that your can use the newest agent versions without updating this plugin.
@@ -35,7 +35,7 @@ The most important configuration values are:
 
 Key | Type | Purpose | Default value
 --- | --- | --- | ---
-`yourKitVersion` | `String` | Version of YourKit installed | `"2019.1"`
+`yourKitVersion` | `String` | Version of YourKit installed | `"2019.8"`
 `yourKitInstallDir` | `String` | Path to the root of the YourKit agent installation | `s"/usr/local/YourKit-JavaProfiler-${yourKitVersion.value}"`
 `yourKitAgentStartupOptions` | `Map[String, String]` | [Startup options for YourKit](https://www.yourkit.com/docs/java/help/startup_options.jsp) | `Map("sessionname" -> s"$project")`
 `yourKitAgentPlatform` | `String` | Platform name, [according to YourKit](https://www.yourkit.com/docs/java/help/agent.jsp), e.g. `linux-ppc-64` | Should be automatically detected, if you're running in a 64-bit architecture.
