@@ -19,7 +19,7 @@ scalacOptions ++= List(
 )
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.3.6" % Provided)
-addSbtPlugin("com.lightbend.sbt" % "sbt-javaagent" % "0.1.4" % Provided)
+addSbtPlugin("com.lightbend.sbt" % "sbt-javaagent" % "0.1.5" % Provided)
 
 enablePlugins(SbtPlugin)
 
