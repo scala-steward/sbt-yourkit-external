@@ -18,7 +18,7 @@ scalacOptions ++= List(
   "-encoding", "UTF-8"
 )
 
-addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.3.6" % Provided)
+addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.3.25" % Provided)
 addSbtPlugin("com.lightbend.sbt" % "sbt-javaagent" % "0.1.4" % Provided)
 
 enablePlugins(SbtPlugin)
