@@ -5,7 +5,7 @@ name := "sbt-yourkit-external"
 
 sbtPlugin := true
 crossSbtVersions := Vector("1.3.7")
-scalaVersion := "2.12.10"
+scalaVersion := "2.12.13"
 pluginCrossBuild / sbtVersion := "1.2.8"
 
 scriptedLaunchOpts += ("-Dplugin.version=" + version.value)
